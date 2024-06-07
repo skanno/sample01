@@ -57,6 +57,9 @@ class ArticlesController extends AppController
                 $this->Flash->error(__('Unable to add your article.'));
             }
         }
+
+        $tags = $this->Articles->Tags->find('list')->all();
+        $this->set(compact('tags'));
         $this->set(compact('article'));
     }
 
@@ -79,7 +82,9 @@ class ArticlesController extends AppController
             $this->Flash->error(__('Unable to update  your article.'));
         }
 
-        $this->set('article', $article);
+        $tags = $this->Articles->Tags->find('list')->all();
+        $this->set(compact('tags'));
+        $this->set(compact('article'));
     }
 
     public function delete($slug)
@@ -92,5 +97,17 @@ class ArticlesController extends AppController
 
             $this->redirect(['action' => 'index']);
         }
+    }
+
+    public function tags()
+    {
+        $tags = $this->getRequest('pass');
+        $articles = $this->Articles->find('tagged', [
+            'tags' => $tags,
+        ])
+        ->all();
+
+        $this->set(compact('tags'));
+        $this->set(compact('articles'));
     }
 }

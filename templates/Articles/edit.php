@@ -4,5 +4,6 @@
     echo $this->Form->control('user_id', ['type' => 'hidden']);
     echo $this->Form->control('title');
     echo $this->Form->control('body', ['rows' => 3]);
+    echo $this->Form->control('tags_id', ['options' => $tags]);
     echo $this->Form->button(__('Save article'));
     echo $this->Form->end();
